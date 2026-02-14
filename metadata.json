@@ -1,0 +1,7 @@
+{
+  "name": "GoShakti - Farmer Identity & Traceability",
+  "description": "A national-scale digital platform for farmer identity (KYF) and product traceability, featuring QR-driven verification and government-grade trust indicators.",
+  "requestFramePermissions": [
+    "camera"
+  ]
+}
