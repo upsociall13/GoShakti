@@ -12,12 +12,55 @@ const MOCK_PRODUCT: ProductTrace = {
   qualityCert: "FSSAI Grade-A, NPOP Organic",
   originLocation: "Jhalawar APMC Hub",
   currentStatus: "En-route to Distribution",
-  imageUrl: "https://picsum.photos/seed/wheat/600/400"
+  imageUrl: "https://images.unsplash.com/photo-1574323347407-f5e1ad6d020b?auto=format&fit=crop&q=80&w=1200"
 };
+
+const BATCH_HISTORY = [
+  { 
+    handler: "Rajeshwar Singh Rathore", 
+    role: "Primary Producer", 
+    action: "Harvest & KYF Registration", 
+    timestamp: "Oct 24, 2024 • 06:45 AM", 
+    txId: "TX-991-A2", 
+    status: "VERIFIED" 
+  },
+  { 
+    handler: "Bharat Logistics Corps", 
+    role: "Transit Provider", 
+    action: "Farm-to-Lab Pickup", 
+    timestamp: "Oct 25, 2024 • 11:20 AM", 
+    txId: "TX-104-B8", 
+    status: "SECURED" 
+  },
+  { 
+    handler: "State Quality Lab #14", 
+    role: "Audit Authority", 
+    action: "FSSAI Grade-A Testing", 
+    timestamp: "Oct 28, 2024 • 03:15 PM", 
+    txId: "TX-442-C1", 
+    status: "CERTIFIED" 
+  },
+  { 
+    handler: "Jhalawar APMC Hub", 
+    role: "State Processing Unit", 
+    action: "Bulk Sorting & Bagging", 
+    timestamp: "Nov 02, 2024 • 09:00 AM", 
+    txId: "TX-883-D4", 
+    status: "VERIFIED" 
+  },
+  { 
+    handler: "Central Storage Facility", 
+    role: "Warehouse Manager", 
+    action: "Cold Chain Entry", 
+    timestamp: "Nov 05, 2024 • 02:40 PM", 
+    txId: "TX-119-E0", 
+    status: "STORED" 
+  }
+];
 
 const ProductProvenance: React.FC = () => {
   return (
-    <div className="max-w-5xl mx-auto p-8 md:py-24 space-y-20">
+    <div className="max-w-5xl mx-auto p-8 md:py-24 space-y-24">
       {/* Header Info */}
       <div className="bg-white rounded-[5rem] shadow-[0_120px_200px_-50px_rgba(0,0,0,0.25)] border-4 border-white overflow-hidden relative group">
         <div className="h-[500px] relative">
@@ -112,6 +155,59 @@ const ProductProvenance: React.FC = () => {
               <p className="text-2xl text-slate-400 font-bold italic">Nov 05, 2024 • Central Agri-Storage Complex</p>
             </div>
           </div>
+        </div>
+      </div>
+
+      {/* NEW: Immutable Chain of Custody Section */}
+      <div className="bg-slate-900 rounded-[5rem] p-16 md:p-24 shadow-3xl text-white">
+        <div className="flex flex-col md:flex-row md:items-end justify-between gap-8 mb-20 border-b border-white/10 pb-12">
+          <div>
+            <p className="text-xs font-black text-emerald-400 uppercase tracking-[0.4em] mb-6">Ledger Verification Protocol</p>
+            <h3 className="text-6xl font-black gov-heading tracking-tighter leading-none">Immutable Chain of Custody</h3>
+          </div>
+          <div className="flex items-center gap-4 bg-white/5 px-8 py-4 rounded-3xl border border-white/10">
+            <div className="w-3 h-3 rounded-full bg-emerald-500 animate-pulse"></div>
+            <span className="text-xs font-black uppercase tracking-widest text-emerald-100">Live Network Audit Log</span>
+          </div>
+        </div>
+
+        <div className="overflow-x-auto">
+          <table className="w-full text-left">
+            <thead>
+              <tr className="border-b border-white/5">
+                <th className="px-6 py-8 text-[10px] font-black text-white/40 uppercase tracking-[0.3em]">Handling Entity</th>
+                <th className="px-6 py-8 text-[10px] font-black text-white/40 uppercase tracking-[0.3em]">Operational Role</th>
+                <th className="px-6 py-8 text-[10px] font-black text-white/40 uppercase tracking-[0.3em]">Verified Action</th>
+                <th className="px-6 py-8 text-[10px] font-black text-white/40 uppercase tracking-[0.3em]">Global Timestamp</th>
+                <th className="px-6 py-8 text-[10px] font-black text-white/40 uppercase tracking-[0.3em] text-right">Verification</th>
+              </tr>
+            </thead>
+            <tbody className="divide-y divide-white/5">
+              {BATCH_HISTORY.map((log, i) => (
+                <tr key={i} className="group hover:bg-white/5 transition-colors">
+                  <td className="px-6 py-10">
+                    <p className="text-xl font-black text-white leading-none mb-2">{log.handler}</p>
+                    <p className="text-[10px] font-mono text-white/30 tracking-widest uppercase">{log.txId}</p>
+                  </td>
+                  <td className="px-6 py-10">
+                    <span className="text-sm font-bold text-emerald-400 uppercase tracking-widest">{log.role}</span>
+                  </td>
+                  <td className="px-6 py-10 text-base font-medium text-white/70">{log.action}</td>
+                  <td className="px-6 py-10 text-sm font-bold text-white/40">{log.timestamp}</td>
+                  <td className="px-6 py-10 text-right">
+                    <span className="inline-flex items-center px-4 py-2 rounded-xl bg-emerald-500/10 text-emerald-400 text-[10px] font-black border border-emerald-500/20 uppercase tracking-widest group-hover:bg-emerald-500 group-hover:text-slate-900 transition-all">
+                      {log.status}
+                    </span>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+
+        <div className="mt-20 pt-12 border-t border-white/5 flex flex-col md:flex-row items-center justify-between gap-8 opacity-40">
+           <p className="text-xs font-black uppercase tracking-[0.2em]">Hash Signature: {Math.random().toString(36).substring(2, 15).toUpperCase()}</p>
+           <button className="text-[10px] font-black uppercase tracking-[0.3em] hover:text-white transition-colors">Download Technical Audit (JSON)</button>
         </div>
       </div>
 
