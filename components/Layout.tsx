@@ -7,9 +7,10 @@ interface LayoutProps {
   role: UserRole;
   setRole: (role: UserRole) => void;
   onNavigate: (view: string) => void;
+  onOpenScanner?: () => void;
 }
 
-const Layout: React.FC<LayoutProps> = ({ children, role, setRole, onNavigate }) => {
+const Layout: React.FC<LayoutProps> = ({ children, role, setRole, onNavigate, onOpenScanner }) => {
   return (
     <div className="min-h-screen flex flex-col font-sans">
       {/* Government Top Bar */}
@@ -41,6 +42,14 @@ const Layout: React.FC<LayoutProps> = ({ children, role, setRole, onNavigate }) 
             
             <div className="h-8 w-px bg-slate-100"></div>
             
+            <button 
+              onClick={onOpenScanner}
+              className="flex items-center gap-3 bg-emerald-50 text-emerald-900 px-6 py-3 rounded-2xl border-2 border-emerald-200 hover:bg-emerald-100 transition-all font-black shadow-sm"
+            >
+              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M12 4v1m6 11h2m-6 0h-2v4m0-11v3m0 0h.01M12 12h4.01M16 20h4M4 12h4m12 0h.01M5 8h2a1 1 0 001-1V5a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1zm12 0h2a1 1 0 001-1V5a1 1 0 00-1-1h-2a1 1 0 00-1 1v2a1 1 0 001 1zM5 20h2a1 1 0 001-1v-2a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1z"/></svg>
+              SCAN ID
+            </button>
+
             <div className="flex items-center gap-6">
               <div className="flex flex-col items-end">
                 <span className="text-[9px] text-slate-400 font-black uppercase tracking-widest mb-1">Access Level</span>
